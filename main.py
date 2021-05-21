@@ -1,9 +1,5 @@
 import discord
 import os
-#import asyncio
-#import youtube_dl
-from ctypes.util import find_library
-from discord import opus
 
 # bot imported from discord.ext.commands module
 # command is an object that wraps a function invoked by a text command in discord
@@ -14,8 +10,6 @@ from discord.ext import commands
 # bot initializer
 # text command must start with ! prefix
 bot = commands.Bot(command_prefix='!')
-client = discord.Client()
-
 
 #event
 @bot.event
