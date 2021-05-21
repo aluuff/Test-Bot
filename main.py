@@ -67,7 +67,4 @@ async def on_message(message):
   
   await bot.process_commands(message)
 
-############################### surprise
-bot.load_extension('voicebot')
-
 bot.run(os.getenv('TOKEN'))
