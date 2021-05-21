@@ -1,5 +1,9 @@
 import discord
 import os
+#import asyncio
+#import youtube_dl
+from ctypes.util import find_library
+from discord import opus
 
 # bot imported from discord.ext.commands module
 # command is an object that wraps a function invoked by a text command in discord
@@ -10,30 +14,60 @@ from discord.ext import commands
 # bot initializer
 # text command must start with ! prefix
 bot = commands.Bot(command_prefix='!')
+client = discord.Client()
 
 
 #event
 @bot.event
 async def on_ready():
-  await bot.change_presence(activity = discord.Game('Fortnite'))
-  print('We have logged in as {0.user}'.format(bot))
+    await bot.change_presence(activity=discord.Game('Fortnite'))
+    print('We have logged in as {0.user}'.format(bot))
 
 
 # uses bot.command() passing invocation command (name) as its argument. only called when !ping is mentioned in chat
 # decorator
-@bot.command(name='ping', help = 'ping + how many times you will ping')
-
+@bot.command(name='ping', help='ping + how many times you will ping')
 # any command function (callback) must accept at least one parameter called ctx (context surrounding the invoked Command)
 # Context holds data such as the cannel and guild that the user called the Command from
 
 # pings whatever chat command was called in x times @ x member
 async def pinging(ctx, harassTime: int, toHarass: discord.Member):
-  for x in range(harassTime):
-    await ctx.send('Harassing ' + toHarass.mention)
+  if (toHarass.mention == '<@827452610361557022>'):
+    await ctx.send('dont ping the bot u dummy')
+  elif (toHarass.mention == '<@308118210832629760>'):
+    await ctx.send('ha, cant ping julia C:< <:juliacool:822672611523297280>')
+  else:
+      for x in range(harassTime):
+        await ctx.send('Harassing ' + toHarass.mention)
 
-# dms user 
-@bot.command(name='test', help = 'test')
+
+@bot.command(name='stinky', help='stinky')
 async def test(ctx):
-  await ctx.send()
+  await ctx.send('julia is stinky')
+
+
+@bot.command(name='stinkier')
+async def reallyStink(ctx, stinker: str, i: int):
+  for x in range(i):
+     await ctx.send(stinker + " is stinky")
+
+#pings sean
+@bot.command(name='sean')
+async def sean(ctx):
+  seanID = '<@151545192590213120>'
+  await ctx.send(seanID + ' sean bot ping')
+  
+@bot.event
+async def on_message(message):
+  if message.author == bot.user:
+    return
+
+  if message.content == 'does sean stink':
+    await message.channel.send('yes')
+  
+  await bot.process_commands(message)
+
+############################### surprise
+bot.load_extension('voicebot')
 
 bot.run(os.getenv('TOKEN'))
